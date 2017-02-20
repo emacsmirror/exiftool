@@ -1,0 +1,9 @@
+el-exiftool is an elisp wrapper around [[http://www.sno.phy.queensu.ca/~phil/exiftool/][exiftool]], a metadata
+editor. Exiftool supports reading and writing metadata in various
+formats including [[wiki:Exif][EXIF]], [[wiki:Extensible_Metadata_Platform][XMP]] and [[wiki:IPTC_Information_Interchange_Model][IPTC]].
+
+* License
+
+el-exiftool is free software released under the terms of the [[https://www.gnu.org/licenses/gpl.txt][GNU
+General Public License]], either version 3 of the License, or (at your
+option) any later version.
