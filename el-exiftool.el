@@ -15,6 +15,7 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with el-exiftool.  If not, see <http://www.gnu.org/licenses/>.
 
+(require 'subr)
 (require 'subr-x)
 (require 'cl)
 
@@ -41,9 +42,17 @@
 			   "\n-execute\n")
 		suffix))))))
 
-(defun el-exiftool-read (filepath tag)
-  (el-exiftool-command
-   "-s" "-s" "-s" (format "-%s" tag) filepath))
+(defun el-exiftool-read (filepath &rest tags)
+  (mapcar
+   (lambda (line)
+     (apply 'cons (split-string line ": ")))
+   (split-string
+    (apply 'el-exiftool-command
+	   "-s" "-s"
+	   (append
+	    (mapcar (apply-partially 'format "-%s") tags)
+	    (list filepath)))
+    "\n+")))
 
 (defun el-exiftool-copy (source destination)
   (el-exiftool-command "-overwrite_original"
@@ -52,10 +61,15 @@
   (message "Tags from %s copied to %s" source destination)
   destination)
 
-(cl-defun el-exiftool-write (filepath (tag . value))
-  (unless (string-blank-p value)
-    (el-exiftool-command
-     "-m" "-overwrite_original"
-     (format "-%s=%s" tag value) filepath)))
+(defun el-exiftool-write (filepath &rest tag-value-alist)
+  (apply 'el-exiftool-command
+	 "-m" "-overwrite_original"
+	 (append
+	  (mapcar
+	   (cl-function
+	    (lambda ((tag . value))
+	      (format "-%s=%s" tag value)))
+	   tag-value-alist)
+	  (list filepath))))
 
 (provide 'el-exiftool)
