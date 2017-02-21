@@ -36,10 +36,10 @@ the process object of the newly created process."
 
 (let ((tq (tq-create (el-exiftool-run))))
   (defun el-exiftool-command (&rest args)
-    "Execute a command in the currently running exiftool
-process. If there is no running exiftool process, a new one will
-be created. ARGS are arguments of the command to be run, as
-provided to the exiftool command line application."
+    "Execute a command in the currently running exiftool process. If
+there is no running exiftool process, a new one will be created. ARGS
+are arguments of the command to be run, as provided to the exiftool
+command line application."
     (string-trim
      (let ((suffix "{ready}\n"))
        (string-remove-suffix
