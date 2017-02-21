@@ -28,12 +28,19 @@
     response))
 
 (defun el-exiftool-run ()
+  "Start an exiftool process if not already running. If an exiftool
+process is already running, delete it, and create a new one. Return
+the process object of the newly created process."
   (when-let (exiftool (get-process "exiftool"))
     (delete-process exiftool))
   (start-process "exiftool" "exiftool" "exiftool" "-stay_open" "True" "-@" "-"))
 
 (let ((tq (tq-create (el-exiftool-run))))
   (defun el-exiftool-command (&rest args)
+    "Execute a command in the currently running exiftool
+process. If there is no running exiftool process, a new one will
+be created. ARGS are arguments of the command to be run, as
+provided to the exiftool command line application."
     (string-trim
      (let ((suffix "{ready}\n"))
        (string-remove-suffix
@@ -42,7 +49,11 @@
 			   "\n-execute\n")
 		suffix))))))
 
-(defun el-exiftool-read (filepath &rest tags)
+(defun el-exiftool-read (file &rest tags)
+  "Read TAGs from FILE, and return an alist mapping tag names to
+corresponding values.
+
+\(fn FILE TAG...)"
   (mapcar
    (lambda (line)
      (apply 'cons (split-string line ": ")))
@@ -51,17 +62,23 @@
 	   "-s" "-s"
 	   (append
 	    (mapcar (apply-partially 'format "-%s") tags)
-	    (list filepath)))
+	    (list file)))
     "\n+")))
 
 (defun el-exiftool-copy (source destination)
+  "Copy tags from SOURCE file to DESTINATION file."
   (el-exiftool-command "-overwrite_original"
 		    "-tagsFromFile" source
 		    "-all:all" destination)
   (message "Tags from %s copied to %s" source destination)
   destination)
 
-(defun el-exiftool-write (filepath &rest tag-value-alist)
+(defun el-exiftool-write (file &rest tag-value-alist)
+  "Write tags to FILE.
+
+The metadata to be written is specified as (TAG . VALUE) pairs.
+
+\(fn FILE (TAG . VALUE)...)"
   (apply 'el-exiftool-command
 	 "-m" "-overwrite_original"
 	 (append
@@ -70,6 +87,6 @@
 	    (lambda ((tag . value))
 	      (format "-%s=%s" tag value)))
 	   tag-value-alist)
-	  (list filepath))))
+	  (list file))))
 
 (provide 'el-exiftool)
