@@ -2,6 +2,36 @@ el-exiftool is an elisp wrapper around [[http://www.sno.phy.queensu.ca/~phil/exi
 editor. Exiftool supports reading and writing metadata in various
 formats including [[wikipedia:Exif][EXIF]], [[wikipedia:Extensible_Metadata_Platform][XMP]] and [[wikipedia:IPTC_Information_Interchange_Model][IPTC]].
 
+* Functions
+
+** (el-exiftool-read FILE TAG...)
+
+Read TAGs from FILE, and return an alist mapping tag names to
+corresponding values.
+
+** (el-exiftool-write FILE (TAG . VALUE)...)
+
+Write tags to FILE.
+
+The metadata to be written is specified as (TAG . VALUE) pairs.
+
+** (el-exiftool-copy SOURCE DESTINATION)
+
+Copy tags from SOURCE file to DESTINATION file.
+
+** (el-exiftool-command &rest ARGS)
+
+Execute a command in the currently running exiftool process.
+If there is no running exiftool process, a new one will be
+created. ARGS are arguments of the command to be run, as provided
+to the exiftool command line application.
+
+** (el-exiftool-run)
+
+Start an exiftool process if not already running.
+If an exiftool process is already running, delete it, and create
+a new one. Return the process object of the newly created
+process.
 
 * License
 
