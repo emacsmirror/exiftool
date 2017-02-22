@@ -1,3 +1,12 @@
+;;; el-exiftool.el --- Elisp wrapper around exiftool ;; -*- lexical-binding: t -*-
+
+;; Elisp wrapper around exiftool
+;; Copyright (C) 2017 by Arun I
+;;
+;; Author: Arun I <arunisaac@systemreboot.net>
+;; Keywords: data
+;; Homepage: https://git.systemreboot.net/el-exiftool
+
 ;; This file is part of el-exiftool.
 
 ;; el-exiftool is free software: you can redistribute it and/or modify
@@ -13,6 +22,12 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with el-exiftool.  If not, see <http://www.gnu.org/licenses/>.
 
+;;; Commentary:
+;;
+;; Unit testing for el-exiftool
+
+;;; Code:
+
 (require 'el-exiftool)
 (require 'ert)
 
@@ -26,3 +41,7 @@
       (should (equal (el-exiftool-read temp-filename (caar tag-value-alist))
 		     tag-value-alist))
       (delete-file temp-filename))))
+
+(provide 'el-exiftool-tests)
+
+;;; el-exiftool-tests.el ends here

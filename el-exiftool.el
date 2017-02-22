@@ -1,4 +1,11 @@
-;; -*- lexical-binding: t -*-
+;;; el-exiftool.el --- Elisp wrapper around exiftool ;; -*- lexical-binding: t -*-
+
+;; Elisp wrapper around exiftool
+;; Copyright (C) 2017 by Arun I
+;;
+;; Author: Arun I <arunisaac@systemreboot.net>
+;; Keywords: data
+;; Homepage: https://git.systemreboot.net/el-exiftool
 
 ;; This file is part of el-exiftool.
 
@@ -14,6 +21,14 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with el-exiftool.  If not, see <http://www.gnu.org/licenses/>.
+
+;;; Commentary:
+;;
+;; el-exiftool is an elisp wrapper around exiftool.  Exiftool supports
+;; reading and writing metadata in various formats including EXIF, XMP
+;; and IPTC.
+
+;;; Code:
 
 (require 'subr-x)
 (require 'cl)
@@ -89,3 +104,5 @@ The metadata to be written is specified as (TAG . VALUE) pairs.
 	  (list file))))
 
 (provide 'el-exiftool)
+
+;;; el-exiftool.el ends here
