@@ -31,16 +31,20 @@
 (require 'el-exiftool)
 (require 'ert)
 
+(defmacro with-temp-test-file (test-filename temp-filename &rest body)
+  (declare (indent defun))
+  `(let ((,temp-filename (make-temp-file "el-exiftool-"
+					 nil (concat "-" ,test-filename))))
+     (copy-file ,test-filename ,temp-filename t)
+     ,@body
+     (delete-file ,temp-filename)))
+
 (ert-deftest read-write-test ()
-  (let ((test-filename "test1.png"))
-    (let ((temp-filename (make-temp-file "el-exiftool-"
-					 nil (concat "-" test-filename)))
-	  (tag-value-alist '(("Marked" . "True"))))
-      (copy-file test-filename temp-filename t)
+  (with-temp-test-file "test1.png" temp-filename
+    (let ((tag-value-alist '(("Marked" . "True"))))
       (apply 'el-exiftool-write temp-filename tag-value-alist)
       (should (equal (el-exiftool-read temp-filename (caar tag-value-alist))
-		     tag-value-alist))
-      (delete-file temp-filename))))
+		     tag-value-alist)))))
 
 (provide 'el-exiftool-tests)
 
