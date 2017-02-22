@@ -70,10 +70,13 @@ to the exiftool command line application."
 \(fn FILE TAG...)"
   (mapcar
    (lambda (line)
-     (apply 'cons (split-string line ": ")))
+     (cl-destructuring-bind
+	 (tag value) (split-string line ": ")
+       (let ((value (if (equal value "-") "" value)))
+	 (cons tag value))))
    (split-string
     (apply 'el-exiftool-command
-	   "-s" "-s"
+	   "-s" "-s" "-f"
 	   (append
 	    (mapcar (apply-partially 'format "-%s") tags)
 	    (list file)))
