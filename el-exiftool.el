@@ -33,9 +33,9 @@
 (require 'subr-x)
 (require 'cl)
 
-(defun el-exiftool--tq-sync-query (tq question regexp &optional closure)
+(defun el-exiftool--tq-sync-query (tq question regexp)
   (let ((response))
-    (tq-enqueue tq question regexp closure
+    (tq-enqueue tq question regexp nil
 		(lambda (closure answer) (setq response answer)))
     (while (not response)
       (accept-process-output))
