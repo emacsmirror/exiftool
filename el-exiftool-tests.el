@@ -46,6 +46,14 @@
       (should (equal (el-exiftool-read temp-filename (caar tag-value-alist))
 		     tag-value-alist)))))
 
+(ert-deftest delete-test ()
+  (with-temp-test-file "test1.png" temp-filename
+    (let ((tag-value-alist '(("Marked" . "True"))))
+      (apply 'el-exiftool-write temp-filename tag-value-alist)
+      (el-exiftool-write temp-filename '(("Marked" . "")))
+      (should (equal (el-exiftool-read temp-filename (caar tag-value-alist))
+		     tag-value-alist)))))
+
 (provide 'el-exiftool-tests)
 
 ;;; el-exiftool-tests.el ends here
