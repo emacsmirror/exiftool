@@ -1,37 +1,86 @@
-el-exiftool is an elisp wrapper around [[http://www.sno.phy.queensu.ca/~phil/exiftool/][exiftool]], a metadata
-editor. Exiftool supports reading and writing metadata in various
-formats including [[wikipedia:Exif][EXIF]], [[wikipedia:Extensible_Metadata_Platform][XMP]] and [[wikipedia:IPTC_Information_Interchange_Model][IPTC]].
+el-exiftool is an elisp wrapper around [[http://www.sno.phy.queensu.ca/~phil/exiftool/][ExifTool]].  ExifTool supports
+reading and writing metadata in various formats including [[wikipedia:Exif][EXIF]], [[wikipedia:Extensible_Metadata_Platform][XMP]]
+and [[wikipedia:IPTC_Information_Interchange_Model][IPTC]].
+
+There is a significant overhead in loading ExifTool for every command
+to be exected. So, el-exiftool starts an ExifTool process in the
+[[http://www.sno.phy.queensu.ca/~phil/exiftool/#performance][-stay_open mode]], and passes all commands to it.
 
 * Functions
+  
+** High level functions
 
-** (el-exiftool-read FILE TAG...)
+*** (el-exiftool-read FILE TAG...)
+   
+Read TAGS from FILE, return an alist mapping TAGS to values.
 
-Read TAGs from FILE, and return an alist mapping tag names to
-corresponding values.
+If a tag is not found, return an empty string "" as the value. If no
+TAGS are specified, read all tags from FILE.
 
-** (el-exiftool-write FILE (TAG . VALUE)...)
+#+BEGIN_SRC emacs-lisp
+  (el-exiftool-read "test1.png" "ImageSize") ;; => '(("ImageSize" . "64x64"))
+  (el-exiftool-read "test1.png" "ImageSize" "Interlace") ;; => '(("ImageSize" . "64x64") ("Interlace" . "Noninterlaced"))
+  (el-exiftool-read "test1.png")
+  ;; => '(("ExifToolVersion" . "10.20")
+  ;; ("FileName" . "test1.png")
+  ;; ("Directory" . ".")
+  ;; ("FileSize" . "1234 bytes")
+  ;; ("FileModifyDate" . "2017:02:19 00:31:36+05:30")
+  ;; ("FileAccessDate" . "2017:02:22 00:21:53+05:30")
+  ;; ("FileInodeChangeDate" . "2017:02:20 00:02:58+05:30")
+  ;; ("FilePermissions" . "rw-r--r--")
+  ;; ("FileType" . "PNG")
+  ;; ("FileTypeExtension" . "png")
+  ;; ("MIMEType" . "image/png")
+  ;; ("ImageWidth" . "64") ...)
+#+END_SRC
 
+*** (el-exiftool-write FILE (TAG . VALUE)...)
+   
 Write tags to FILE.
 
 The metadata to be written is specified as (TAG . VALUE) pairs.
+Specifying the empty string "" for VALUE deletes that TAG.
 
-** (el-exiftool-copy SOURCE DESTINATION)
+#+BEGIN_SRC emacs-lisp
+  ;; Set Marked to "True"
+  (el-exiftool-write "test1.png" '("Marked" . "True"))
+  ;; Set Marked to "True", and Creator to "Foo"
+  (el-exiftool-write "test1.png"
+		     '("Marked" . "True")
+		     '("Creator" . "Foo"))
+#+END_SRC
 
-Copy tags from SOURCE file to DESTINATION file.
+*** (el-exiftool-copy SOURCE DESTINATION &rest TAGS)
+   
+Copy TAGS from SOURCE file to DESTINATION file.
 
-** (el-exiftool-command &rest ARGS)
+If no TAGS are specified, copy all tags from SOURCE.
 
+#+BEGIN_SRC emacs-lisp
+  ;; Copy all writable tags
+  (el-exiftool-copy "source.png" "destination.png")
+  ;; Copy only the tag Marked
+  (el-exiftool-copy "source.png" "destination.png" "Marked")
+  ;; Copy only the tags Marked and Creator
+  (el-exiftool-copy "source.png" "destination.png" "Marked" "Creator")
+#+END_SRC
+
+** Low level functions
+   
+*** (el-exiftool-command &rest ARGS)
+   
 Execute a command in the currently running exiftool process.
-If there is no running exiftool process, a new one will be
-created. ARGS are arguments of the command to be run, as provided
-to the exiftool command line application.
 
-** (el-exiftool-run)
+ARGS are arguments of the command to be run, as provided to the
+exiftool command line application.
 
-Start an exiftool process if not already running.
-If an exiftool process is already running, delete it, and create
-a new one. Return the process object of the newly created
-process.
+*** (el-exiftool-run)
+   
+Start an exiftool process if one is not already running.
+
+If an exiftool process is already running, delete it, and create a new
+one.  Return the process object of the newly created process.
 
 * License
 
