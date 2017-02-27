@@ -31,13 +31,14 @@
 (require 'el-exiftool)
 (require 'ert)
 
-(defmacro with-temp-test-file (test-filename temp-filename &rest body)
+(defmacro with-temp-test-file (test-file temp-file &rest body)
+  "Copy TEST-FILE to temporary file, put path in TEMP-FILE, evaluate BODY."
   (declare (indent defun))
-  `(let ((,temp-filename (make-temp-file "el-exiftool-"
-					 nil (concat "-" ,test-filename))))
-     (copy-file ,test-filename ,temp-filename t)
+  `(let ((,temp-file (make-temp-file "el-exiftool-"
+					 nil (concat "-" ,test-file))))
+     (copy-file ,test-file ,temp-file t)
      ,@body
-     (delete-file ,temp-filename)))
+     (delete-file ,temp-file)))
 
 (ert-deftest read-write-test ()
   (with-temp-test-file "test1.png" temp-filename
