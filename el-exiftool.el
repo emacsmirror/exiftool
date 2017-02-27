@@ -89,11 +89,16 @@ value. If no TAGS are specified, read all tags from FILE.
 	    (list file)))
     "\n+")))
 
-(defun el-exiftool-copy (source destination)
-  "Copy tags from SOURCE file to DESTINATION file."
-  (el-exiftool-command "-overwrite_original"
-		    "-tagsFromFile" source
-		    "-all:all" destination)
+(defun el-exiftool-copy (source destination &rest tags)
+  "Copy TAGS from SOURCE file to DESTINATION file.
+
+If no TAGS are specified, copy all tags from SOURCE."
+  (apply 'el-exiftool-command
+	 "-overwrite_original"
+	 "-tagsFromFile" source
+	 (append
+	  (mapcar (apply-partially 'format "-%s") tags)
+	  (list "-all:all" destination)))
   (message "Tags from %s copied to %s" source destination)
   destination)
 
