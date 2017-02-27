@@ -18,8 +18,10 @@ If a tag is not found, return an empty string "" as the value. If no
 TAGS are specified, read all tags from FILE.
 
 #+BEGIN_SRC emacs-lisp
-  (el-exiftool-read "test1.png" "ImageSize") ;; => '(("ImageSize" . "64x64"))
-  (el-exiftool-read "test1.png" "ImageSize" "Interlace") ;; => '(("ImageSize" . "64x64") ("Interlace" . "Noninterlaced"))
+  (el-exiftool-read "test1.png" "ImageSize")
+  ;; => '(("ImageSize" . "64x64"))
+  (el-exiftool-read "test1.png" "ImageSize" "Interlace")
+  ;; => '(("ImageSize" . "64x64") ("Interlace" . "Noninterlaced"))
   (el-exiftool-read "test1.png")
   ;; => '(("ExifToolVersion" . "10.20")
   ;; ("FileName" . "test1.png")
