@@ -1,6 +1,6 @@
-;;; el-exiftool.el --- Elisp wrapper around exiftool ;; -*- lexical-binding: t -*-
+;;; el-exiftool.el --- Elisp wrapper around ExifTool ;; -*- lexical-binding: t -*-
 
-;; Elisp wrapper around exiftool
+;; Elisp wrapper around ExifTool
 ;; Copyright (C) 2017 by Arun I
 ;;
 ;; Author: Arun I <arunisaac@systemreboot.net>
@@ -24,7 +24,7 @@
 
 ;;; Commentary:
 ;;
-;; el-exiftool is an elisp wrapper around exiftool.  Exiftool supports
+;; el-exiftool is an elisp wrapper around ExifTool.  ExifTool supports
 ;; reading and writing metadata in various formats including EXIF, XMP
 ;; and IPTC.
 
