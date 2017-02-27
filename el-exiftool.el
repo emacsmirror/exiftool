@@ -71,7 +71,7 @@ exiftool command line application."
 (defun el-exiftool-read (file &rest tags)
   "Read TAGS from FILE, return an alist mapping TAGS to values.
 
-If a tag is not found, an empty string \"\" is returned as its
+If a tag is not found, return an empty string \"\" as the
 value. If no TAGS are specified, read all tags from FILE.
 
 \(fn FILE TAG...)"
