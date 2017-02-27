@@ -28,6 +28,11 @@
 
 ;;; Code:
 
+(defvar el-exiftool-tests--tag-value
+  '(("Marked" . "True")
+    ("Creator" . "foo")
+    ("Rights" . "bar")))
+
 (require 'el-exiftool)
 (require 'ert)
 
@@ -41,19 +46,28 @@
      (delete-file ,temp-file)))
 
 (ert-deftest read-write-test ()
-  (with-temp-test-file "test1.png" temp-filename
-    (let ((tag-value-alist '(("Marked" . "True"))))
-      (apply 'el-exiftool-write temp-filename tag-value-alist)
-      (should (equal (el-exiftool-read temp-filename (caar tag-value-alist))
-		     tag-value-alist)))))
+  (with-temp-test-file "test1.png" temp-file
+    (apply 'el-exiftool-write temp-file el-exiftool-tests--tag-value)
+    (should (equal (apply 'el-exiftool-read temp-file (mapcar 'car el-exiftool-tests--tag-value))
+		   el-exiftool-tests--tag-value))))
 
 (ert-deftest delete-test ()
   (with-temp-test-file "test1.png" temp-file
-    (el-exiftool-write temp-file '("Marked" . "True"))
-    (el-exiftool-write temp-file '("Marked" . ""))
-    (should (equal (el-exiftool-read temp-file "Marked")
-		   '(("Marked" . ""))))))
+    (el-exiftool-write temp-file (car el-exiftool-tests--tag-value))
+    (let ((delete-pair
+	   (cons (caar el-exiftool-tests--tag-value) "")))
+      (el-exiftool-write temp-file delete-pair)
+      (should (equal (car (el-exiftool-read temp-file "Marked"))
+		     delete-pair)))))
 
+(ert-deftest copy-test ()
+  (with-temp-test-file "test1.png" temp-1
+    (with-temp-test-file "test2.jpg" temp-2
+      (apply 'el-exiftool-write temp-1 el-exiftool-tests--tag-value)
+      (el-exiftool-copy temp-1 temp-2)
+      (let ((tags (mapcar 'car el-exiftool-tests--tag-value)))
+	(should (equal (apply 'el-exiftool-read temp-1 tags)
+		       (apply 'el-exiftool-read temp-2 tags)))))))
 
 (provide 'el-exiftool-tests)
 
