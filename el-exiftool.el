@@ -34,6 +34,9 @@
 (require 'cl)
 
 (defun el-exiftool--tq-sync-query (tq question regexp)
+  "Add a transaction to transaction queue TQ, block and read response.
+
+See `tq-enqueue' for details of arguments QUESTION and REGEXP."
   (let ((response))
     (tq-enqueue tq question regexp nil
 		(lambda (closure answer) (setq response answer)))
@@ -43,8 +46,9 @@
 
 (defun el-exiftool-run ()
   "Start an exiftool process if one is not already running.
+
 If an exiftool process is already running, delete it, and create
-a new one. Return the process object of the newly created
+a new one.  Return the process object of the newly created
 process."
   (when-let (exiftool (get-process "exiftool"))
     (delete-process exiftool))
@@ -53,9 +57,9 @@ process."
 (let ((tq (tq-create (el-exiftool-run))))
   (defun el-exiftool-command (&rest args)
     "Execute a command in the currently running exiftool process.
-If there is no running exiftool process, a new one will be
-created. ARGS are arguments of the command to be run, as provided
-to the exiftool command line application."
+
+ARGS are arguments of the command to be run, as provided to the
+exiftool command line application."
     (string-trim
      (let ((suffix "{ready}\n"))
        (string-remove-suffix
@@ -65,7 +69,10 @@ to the exiftool command line application."
 		suffix))))))
 
 (defun el-exiftool-read (file &rest tags)
-  "Read TAGs from FILE, and return an alist mapping tag names to corresponding values.
+  "Read TAGS from FILE, return an alist mapping TAGS to values.
+
+If a tag is not found, an empty string \"\" is returned as its
+value. If no TAGS are specified, read all tags from FILE.
 
 \(fn FILE TAG...)"
   (mapcar
@@ -93,7 +100,9 @@ to the exiftool command line application."
 (defun el-exiftool-write (file &rest tag-value-alist)
   "Write tags to FILE.
 
-The metadata to be written is specified as (TAG . VALUE) pairs.
+The metadata to be written is specified as (TAG . VALUE)
+pairs.  Specifying the empty string \"\" for VALUE deletes that
+TAG.
 
 \(fn FILE (TAG . VALUE)...)"
   (apply 'el-exiftool-command
