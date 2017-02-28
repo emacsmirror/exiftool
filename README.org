@@ -84,6 +84,14 @@ Start an exiftool process if one is not already running.
 If an exiftool process is already running, delete it, and create a new
 one.  Return the process object of the newly created process.
 
+* Running tests
+
+Tests are located in the /tests/ folder. You can run them using
+
+#+BEGIN_SRC bash
+  make -C tests check
+#+END_SRC
+
 * License
 
 el-exiftool is free software released under the terms of the [[https://www.gnu.org/licenses/gpl.txt][GNU
