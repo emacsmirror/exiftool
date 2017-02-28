@@ -40,6 +40,7 @@
 
 (require 'cl-macs)
 (require 'subr-x)
+(require 'tq)
 
 (defun el-exiftool--tq-sync-query (tq question regexp)
   "Add a transaction to transaction queue TQ, block and read response.
