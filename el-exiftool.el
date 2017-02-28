@@ -4,6 +4,7 @@
 ;; Copyright (C) 2017 by Arun I
 ;;
 ;; Author: Arun I <arunisaac@systemreboot.net>
+;; Version: 0.1
 ;; Keywords: data
 ;; Homepage: https://git.systemreboot.net/el-exiftool
 
