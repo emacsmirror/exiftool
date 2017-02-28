@@ -38,8 +38,8 @@
 
 ;;; Code:
 
+(require 'cl-macs)
 (require 'subr-x)
-(require 'cl)
 
 (defun el-exiftool--tq-sync-query (tq question regexp)
   "Add a transaction to transaction queue TQ, block and read response.
