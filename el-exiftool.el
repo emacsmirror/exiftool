@@ -48,7 +48,7 @@
 See `tq-enqueue' for details of arguments QUESTION and REGEXP."
   (let ((response))
     (tq-enqueue tq question regexp nil
-		(lambda (closure answer) (setq response answer)))
+		(lambda (_ answer) (setq response answer)))
     (while (not response)
       (accept-process-output))
     response))
