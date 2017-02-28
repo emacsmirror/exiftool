@@ -7,6 +7,7 @@
 ;; Version: 0.1
 ;; Keywords: data
 ;; Homepage: https://git.systemreboot.net/el-exiftool
+;; Package-Requires: ((emacs "25"))
 
 ;; This file is part of el-exiftool.
 
