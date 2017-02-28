@@ -1,4 +1,4 @@
-;;; el-exiftool.el --- Elisp wrapper around ExifTool ;; -*- lexical-binding: t -*-
+;;; el-exiftool.el --- Elisp wrapper around ExifTool -*- lexical-binding: t -*-
 
 ;; Elisp wrapper around ExifTool
 ;; Copyright (C) 2017 by Arun I
