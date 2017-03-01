@@ -38,7 +38,7 @@
 
 ;;; Code:
 
-(require 'cl-macs)
+(require 'cl-lib)
 (require 'subr-x)
 (require 'tq)
 
