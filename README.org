@@ -6,6 +6,11 @@ There is a significant overhead in loading ExifTool for every command
 to be exected. So, exiftool.el starts an ExifTool process in the
 [[http://www.sno.phy.queensu.ca/~phil/exiftool/#performance][-stay_open mode]], and passes all commands to it.
 
+* Installation
+
+exiftool.el is available from [[https://melpa.org/][MELPA]]. Or, you can also clone this git
+repo and add the path to your /load-path/.
+
 * Functions
   
 ** High level functions
