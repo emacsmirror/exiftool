@@ -93,7 +93,7 @@ one.  Return the process object of the newly created process.
 
 Tests are located in the /tests/ folder. You can run them using
 
-#+BEGIN_SRC bash
+#+BEGIN_SRC sh
   make -C tests check
 #+END_SRC
 
