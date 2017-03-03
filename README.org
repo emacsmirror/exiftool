@@ -67,9 +67,9 @@ If no TAGS are specified, copy all tags from SOURCE.
 #+BEGIN_SRC emacs-lisp
   ;; Copy all writable tags
   (exiftool-copy "source.png" "destination.png")
-  ;; Copy only the tag Marked
+  ;; Copy only the tag "Marked"
   (exiftool-copy "source.png" "destination.png" "Marked")
-  ;; Copy only the tags Marked and Creator
+  ;; Copy only the tags "Marked" and "Creator"
   (exiftool-copy "source.png" "destination.png" "Marked" "Creator")
 #+END_SRC
 
