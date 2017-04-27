@@ -97,4 +97,6 @@ Tests are located in the /tests/ folder. You can run them using
   make -C tests
 #+END_SRC
 
+{{{contact}}}
+
 {{{license(exiftool.el)}}}
