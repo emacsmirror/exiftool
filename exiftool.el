@@ -89,7 +89,10 @@ value. If no TAGS are specified, read all tags from FILE.
      (string-match "\\([^:]*\\): \\(.*\\)" line)
      (let ((tag (match-string 1 line))
 	   (value (match-string 2 line)))
-       (cons tag (if (equal value "-") "" value))))
+       (cons tag (if (equal value "-")
+		     (exiftool-command "-s" "-s" "-s"
+				       (format "-%s" tag) file)
+		   value))))
    (split-string
     (apply 'exiftool-command
 	   "-s" "-s" "-f"
