@@ -31,7 +31,11 @@
 (defvar exiftool-tests--tag-value
   '(("Marked" . "True")
     ("Creator" . "foo")
-    ("Rights" . "bar")))
+    ("Rights" . "-")
+    ("Publisher" . "")
+    ("Source" . "http://example.com")
+    ("Subject" . "foo:bar")
+    ("Description" . "foo: bar")))
 
 (require 'exiftool)
 (require 'cl-lib)
