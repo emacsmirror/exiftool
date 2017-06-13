@@ -113,7 +113,6 @@ If no TAGS are specified, copy all tags from SOURCE."
 	      (mapcar (apply-partially 'format "-%s") tags)
 	    (list "-all:all"))
 	  (list destination)))
-  (message "Tags from %s copied to %s" source destination)
   destination)
 
 (defun exiftool-write (file &rest tag-value-alist)
