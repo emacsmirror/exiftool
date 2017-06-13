@@ -86,10 +86,10 @@ value. If no TAGS are specified, read all tags from FILE.
 \(fn FILE TAG...)"
   (mapcar
    (lambda (line)
-     (cl-destructuring-bind
-	 (tag value) (split-string line ": ")
-       (let ((value (if (equal value "-") "" value)))
-	 (cons tag value))))
+     (string-match "\\([^:]*\\): \\(.*\\)" line)
+     (let ((tag (match-string 1 line))
+	   (value (match-string 2 line)))
+       (cons tag (if (equal value "-") "" value))))
    (split-string
     (apply 'exiftool-command
 	   "-s" "-s" "-f"
