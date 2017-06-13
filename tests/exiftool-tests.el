@@ -62,7 +62,7 @@
 
 (ert-deftest copy-test ()
   (with-temp-test-file "test1.png" temp-1
-    (with-temp-test-file "test2.jpg" temp-2
+    (with-temp-test-file "test2.png" temp-2
       (apply 'exiftool-write temp-1 exiftool-tests--tag-value)
       (exiftool-copy temp-1 temp-2)
       (let ((tags (mapcar 'car exiftool-tests--tag-value)))
