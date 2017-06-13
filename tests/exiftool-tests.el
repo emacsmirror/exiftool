@@ -34,6 +34,7 @@
     ("Rights" . "bar")))
 
 (require 'exiftool)
+(require 'cl-lib)
 (require 'ert)
 
 (defmacro with-temp-test-file (test-file temp-file &rest body)
@@ -60,7 +61,7 @@
       (should (equal (car (exiftool-read temp-file "Marked"))
 		     delete-pair)))))
 
-(ert-deftest copy-test ()
+(ert-deftest copy-all-test ()
   (with-temp-test-file "test1.png" temp-1
     (with-temp-test-file "test2.png" temp-2
       (apply 'exiftool-write temp-1 exiftool-tests--tag-value)
@@ -68,6 +69,18 @@
       (let ((tags (mapcar 'car exiftool-tests--tag-value)))
 	(should (equal (apply 'exiftool-read temp-1 tags)
 		       (apply 'exiftool-read temp-2 tags)))))))
+
+(ert-deftest copy-some-test ()
+  (with-temp-test-file "test1.png" temp-1
+    (with-temp-test-file "test2.png" temp-2
+      (apply 'exiftool-write temp-1 exiftool-tests--tag-value)
+      (let* ((all-tags (mapcar 'car exiftool-tests--tag-value))
+	     (some-tags (cl-subseq all-tags 2)))
+	(apply 'exiftool-copy temp-1 temp-2 some-tags)
+	(should (and (not (equal (apply 'exiftool-read temp-1 all-tags)
+				 (apply 'exiftool-read temp-2 all-tags)))
+		     (equal (apply 'exiftool-read temp-1 some-tags)
+			    (apply 'exiftool-read temp-2 some-tags))))))))
 
 (provide 'exiftool-tests)
 
