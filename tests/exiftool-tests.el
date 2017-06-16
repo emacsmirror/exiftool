@@ -44,8 +44,8 @@
 (defmacro with-temp-test-file (test-file temp-file &rest body)
   "Copy TEST-FILE to temporary file, put path in TEMP-FILE, evaluate BODY."
   (declare (indent defun))
-  `(let ((,temp-file (make-temp-file "exiftool-"
-					 nil (concat "-" ,test-file))))
+  `(let ((,temp-file (make-temp-file
+		      "exiftool-" nil (concat "-" ,test-file))))
      (copy-file ,test-file ,temp-file t)
      ,@body
      (delete-file ,temp-file)))
