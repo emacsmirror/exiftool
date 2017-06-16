@@ -64,11 +64,11 @@
 
 (ert-deftest delete-test ()
   (with-temp-test-file "test1.png" temp-file
-    (exiftool-write temp-file (car exiftool-tests--tag-value))
+    (exiftool-write temp-file (nth 0 exiftool-tests--tag-value))
     (let ((delete-pair
 	   (cons (caar exiftool-tests--tag-value) "")))
       (exiftool-write temp-file delete-pair)
-      (should (equal (car (exiftool-read temp-file "Marked"))
+      (should (equal (nth 0 (exiftool-read temp-file "Marked"))
 		     delete-pair)))))
 
 (ert-deftest copy-all-test ()
