@@ -106,7 +106,7 @@ value. If no TAGS are specified, read all tags from FILE.
 
 If no TAGS are specified, copy all tags from SOURCE."
   (apply 'exiftool-command
-	 "-overwrite_original"
+	 "-m" "-overwrite_original"
 	 "-tagsFromFile" source
 	 (append
 	  (if tags
