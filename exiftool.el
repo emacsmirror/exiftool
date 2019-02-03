@@ -1,7 +1,7 @@
 ;;; exiftool.el --- Elisp wrapper around ExifTool -*- lexical-binding: t -*-
 
 ;; Elisp wrapper around ExifTool
-;; Copyright (C) 2017 by Arun I
+;; Copyright (C) 2017, 2019 by Arun I
 ;;
 ;; Author: Arun I <arunisaac@systemreboot.net>
 ;; Version: 0.3
@@ -77,6 +77,10 @@ exiftool command line application."
 			   "\n-execute\n")
 		suffix))))))
 
+(defun exiftool--assert-file-exists (file)
+  (unless (file-exists-p file)
+    (signal 'file-missing file)))
+
 (defun exiftool-read (file &rest tags)
   "Read TAGS from FILE, return an alist mapping TAGS to values.
 
@@ -84,6 +88,7 @@ If a tag is not found, return an empty string \"\" as the
 value. If no TAGS are specified, read all tags from FILE.
 
 \(fn FILE TAG...)"
+  (exiftool--assert-file-exists file)
   (mapcar
    (lambda (line)
      (string-match "\\([^:]*\\): \\(.*\\)" line)
@@ -105,6 +110,8 @@ value. If no TAGS are specified, read all tags from FILE.
   "Copy TAGS from SOURCE file to DESTINATION file.
 
 If no TAGS are specified, copy all tags from SOURCE."
+  (exiftool--assert-file-exists source)
+  (exiftool--assert-file-exists destination)
   (apply 'exiftool-command
 	 "-m" "-overwrite_original"
 	 "-tagsFromFile" source
@@ -123,6 +130,7 @@ pairs.  Specifying the empty string \"\" for VALUE deletes that
 TAG.
 
 \(fn FILE (TAG . VALUE)...)"
+  (exiftool--assert-file-exists file)
   (apply 'exiftool-command
 	 "-m" "-overwrite_original"
 	 (append

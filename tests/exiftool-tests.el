@@ -1,7 +1,7 @@
 ;;; exiftool.el --- Elisp wrapper around exiftool ;; -*- lexical-binding: t -*-
 
 ;; Elisp wrapper around exiftool
-;; Copyright (C) 2017 by Arun I
+;; Copyright (C) 2017, 2019 by Arun I
 ;;
 ;; Author: Arun I <arunisaac@systemreboot.net>
 ;; Keywords: data
@@ -89,6 +89,19 @@
 				 (apply 'exiftool-read temp-2 exiftool-tests--tags)))
 		     (equal (apply 'exiftool-read temp-1 some-tags)
 			    (apply 'exiftool-read temp-2 some-tags))))))))
+
+(ert-deftest read-file-not-found-test ()
+  (should-error (exiftool-read "non-existent-file.png")
+                :type 'file-missing))
+
+(ert-deftest copy-file-not-found-test ()
+  (should-error (exiftool-copy "non-existent-file-1.png"
+                               "non-existent-file-2.png")
+                :type 'file-missing))
+
+(ert-deftest write-file-not-found-test ()
+  (should-error (exiftool-write "non-existent-file.png")
+                :type 'file-missing))
 
 (provide 'exiftool-tests)
 
