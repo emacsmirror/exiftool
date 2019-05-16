@@ -64,7 +64,7 @@ a new one.  Return the process object of the newly created
 process."
   (when-let (exiftool (get-process "exiftool"))
     (delete-process exiftool))
-  (start-process "exiftool" "exiftool"
+  (start-process "exiftool" "*exiftool*"
                  exiftool-executable "-stay_open" "True" "-@" "-"))
 
 (let ((tq (tq-create (exiftool-run))))
