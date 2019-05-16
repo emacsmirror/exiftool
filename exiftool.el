@@ -42,6 +42,9 @@
 (require 'subr-x)
 (require 'tq)
 
+(defvar exiftool-executable "exiftool"
+  "Executable used to invoke exiftool.")
+
 (defun exiftool--tq-sync-query (tq question regexp)
   "Add a transaction to transaction queue TQ, block and read response.
 
@@ -61,7 +64,8 @@ a new one.  Return the process object of the newly created
 process."
   (when-let (exiftool (get-process "exiftool"))
     (delete-process exiftool))
-  (start-process "exiftool" "exiftool" "exiftool" "-stay_open" "True" "-@" "-"))
+  (start-process "exiftool" "exiftool"
+                 exiftool-executable "-stay_open" "True" "-@" "-"))
 
 (let ((tq (tq-create (exiftool-run))))
   (defun exiftool-command (&rest args)
