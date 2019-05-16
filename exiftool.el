@@ -4,7 +4,7 @@
 ;; Copyright (C) 2017, 2019 by Arun I
 ;;
 ;; Author: Arun I <arunisaac@systemreboot.net>
-;; Version: 0.3.1
+;; Version: 0.3.2
 ;; Keywords: data
 ;; Homepage: https://git.systemreboot.net/exiftool.el
 ;; Package-Requires: ((emacs "25"))
