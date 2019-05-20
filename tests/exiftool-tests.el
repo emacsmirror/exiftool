@@ -52,7 +52,7 @@
   (declare (indent defun))
   `(let ((,temp-file (make-temp-file
 		      "exiftool-" nil (concat "-" ,test-file))))
-     (copy-file ,test-file ,temp-file t)
+     (copy-file ,(expand-file-name test-file "tests") ,temp-file t)
      ,@body
      (delete-file ,temp-file)))
 
