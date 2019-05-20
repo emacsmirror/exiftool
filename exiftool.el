@@ -67,6 +67,9 @@ process."
   (start-process "exiftool" "*exiftool*"
                  exiftool-executable "-stay_open" "True" "-@" "-"))
 
+;; Declare exiftool-command to pacify byte compiler
+(declare-function exiftool-command "exiftool.el" (&rest args))
+
 (let ((tq (tq-create (exiftool-run))))
   (defun exiftool-command (&rest args)
     "Execute a command in the currently running exiftool process.
