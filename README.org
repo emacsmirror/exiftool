@@ -1,7 +1,7 @@
 #+TITLE: exiftool.el
 #+LINK: wikipedia https://en.wikipedia.org/wiki/
 
-[[https://melpa.org/#/exiftool][https://melpa.org/packages/exiftool-badge.svg]]
+[[https://melpa.org/#/exiftool][https://melpa.org/packages/exiftool-badge.svg]] [[https://ci.systemreboot.net/jobs/exiftool.el][https://ci.systemreboot.net/badge/exiftool.el.svg]]
 
 exiftool.el is an elisp wrapper around [[http://www.sno.phy.queensu.ca/~phil/exiftool/][ExifTool]].  ExifTool supports
 reading and writing metadata in various formats including [[wikipedia:Exif][EXIF]], [[wikipedia:Extensible_Metadata_Platform][XMP]]
