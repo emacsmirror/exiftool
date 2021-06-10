@@ -1,7 +1,7 @@
 ;;; exiftool.el --- Elisp wrapper around exiftool ;; -*- lexical-binding: t -*-
 
 ;; Elisp wrapper around exiftool
-;; Copyright (C) 2017, 2019 by Arun I
+;; Copyright (C) 2017, 2019, 2021 by Arun I
 ;;
 ;; Author: Arun I <arunisaac@systemreboot.net>
 ;; Keywords: data
@@ -28,6 +28,10 @@
 
 ;;; Code:
 
+(require 'exiftool)
+(require 'cl-lib)
+(require 'ert)
+
 (defvar exiftool-tests--tag-value
   '(("Marked" . "True")
     ("Creator" . "foo")
@@ -42,10 +46,6 @@
 	    (lambda ((tag . value))
 	      tag))
 	  exiftool-tests--tag-value))
-
-(require 'exiftool)
-(require 'cl-lib)
-(require 'ert)
 
 (defmacro with-temp-test-file (test-file temp-file &rest body)
   "Copy TEST-FILE to temporary file, put path in TEMP-FILE, evaluate BODY."
