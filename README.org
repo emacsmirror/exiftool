@@ -13,6 +13,8 @@ to be exected. So, exiftool.el starts an ExifTool process in the
 
 * Installation
 
+https://repology.org/badge/vertical-allrepos/emacs:exiftool.svg
+
 exiftool.el is available from [[https://melpa.org/][MELPA]]. Or, you can also clone this git
 repo and add the path to your /load-path/.
 
