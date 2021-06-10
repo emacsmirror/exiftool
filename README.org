@@ -1,4 +1,5 @@
 #+TITLE: exiftool.el
+#+LINK: wikipedia https://en.wikipedia.org/wiki/
 exiftool.el is an elisp wrapper around [[http://www.sno.phy.queensu.ca/~phil/exiftool/][ExifTool]].  ExifTool supports
 reading and writing metadata in various formats including [[wikipedia:Exif][EXIF]], [[wikipedia:Extensible_Metadata_Platform][XMP]]
 and [[wikipedia:IPTC_Information_Interchange_Model][IPTC]].
