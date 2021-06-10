@@ -99,6 +99,13 @@ Tests are located in the /tests/ folder. You can run them using
   make -C tests
 #+END_SRC
 
-{{{contact}}}
+* Contributing
 
-{{{license(exiftool.el)}}}
+Feedback, suggestions, feature requests, bug reports and patches are
+all welcome. Please contact me by mail at [[mailto:arunisaac@systemreboot.net][arunisaac@systemreboot.net]].
+
+* License
+
+exiftool.el is free software released under the terms of the [[https://www.gnu.org/licenses/gpl.txt][GNU
+General Public License]], either version 3 of the License, or (at your
+option) any later version.
