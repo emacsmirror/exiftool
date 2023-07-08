@@ -1,0 +1,1 @@
+.guix/emacs-exiftool-package.scm
